@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Word {
+  id         Int      @id @default(autoincrement())
+  word       String   @unique
+  meaning_en String
+  meaning_jp String
+  note       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// Noun, verb, adjective, adverb, preposition, conjunction, interjection
+model Type {
+  id        Int      @id @default(autoincrement())
+  name_en   String   @unique
+  name_jp   String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Eiken grades, TOEIC, TOEFL, IELTS, JLPT, etc.
+model Category {
+  id        Int      @id @default(autoincrement())
+  name_en   String   @unique
+  name_jp   String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Difficulty, frequency, etc.
+model Tag {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

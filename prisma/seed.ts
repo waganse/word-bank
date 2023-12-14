@@ -8,35 +8,49 @@ const words = [
     word: 'let',
     meaning_en: 'to allow',
     meaning_jp: '○に-させる, ○に-するのを許す',
-    types: '1',
-    sentences:
-      'I will let you know when I have made a decision.,I let my children stay up late on weekends.,Let me think about it.,Let me see.',
+    sentences: {
+      create: [
+        {
+          sentence: 'I will let you know when I have made a decision.',
+        },
+        {
+          sentence: 'I let my children stay up late on weekends.',
+        },
+        {
+          sentence: 'Let me think about it.',
+        },
+        {
+          sentence: 'Let me see.',
+        },
+      ],
+    },
     note: 'let-let-let',
-    categories: '3',
-    tags: '',
   },
   {
     id: 2,
     word: 'create',
     meaning_en: 'to make something new',
     meaning_jp: '-を作る, -を生み出す',
-    types: '1',
-    sentences: 'This recipe was created by a famous chef.,Please create a new password.',
+    sentences: {
+      create: [
+        { sentence: 'This recipe was created by a famous chef.' },
+        { sentence: 'Please create a new password.' },
+      ],
+    },
     note: 'create-created-created, creation: 作品, 創造, creative: 創造的な',
-    categories: '3',
-    tags: '',
   },
   {
     id: 3,
     word: 'cause',
     meaning_en: 'the reason why something happens, to make something happen',
-    meaning_jp: '原因, -の原因となる, -を引き起こす',
-    types: '1,2',
-    sentences:
-      'The cause of the fire is unknown.,Smoking causes cancer.,The accident caused a traffic jam.',
+    meaning_jp: '[n]原因, [v]-の原因となる, -を引き起こす',
+    sentences: {
+      create: [
+        { sentence: 'The cause of the fire is unknown.,Smoking causes cancer.' },
+        { sentence: 'The accident caused a traffic jam.' },
+      ],
+    },
     note: 'cause-caused-caused, 反意語: prevent',
-    categories: '3',
-    tags: '',
   },
 ];
 
@@ -131,34 +145,93 @@ const categories = [
   },
 ];
 
+const wordInTypes = [
+  {
+    id: 1,
+    word_id: 1,
+    type_id: 1,
+  },
+  {
+    id: 2,
+    word_id: 2,
+    type_id: 1,
+  },
+  {
+    id: 3,
+    word_id: 3,
+    type_id: 1,
+  },
+  {
+    id: 4,
+    word_id: 3,
+    type_id: 2,
+  },
+];
+
+const wordInCategories = [
+  {
+    id: 1,
+    word_id: 1,
+    category_id: 3,
+  },
+  {
+    id: 2,
+    word_id: 2,
+    category_id: 3,
+  },
+  {
+    id: 3,
+    word_id: 3,
+    category_id: 3,
+  },
+];
+
 async function main() {
   console.log(`Start seeding ...`);
 
-  for (const word of words) {
-    const result = await prisma.word.upsert({
-      where: { id: word.id },
-      update: {},
-      create: word,
-    });
-    console.log(`Created word with id: ${result.id}`);
-  }
-
-  for (const type of types) {
+  for (const item of types) {
     const result = await prisma.type.upsert({
-      where: { id: type.id },
+      where: { id: item.id },
       update: {},
-      create: type,
+      create: item,
     });
     console.log(`Created type with id: ${result.id}`);
   }
 
-  for (const category of categories) {
+  for (const item of categories) {
     const result = await prisma.category.upsert({
-      where: { id: category.id },
+      where: { id: item.id },
       update: {},
-      create: category,
+      create: item,
     });
     console.log(`Created category with id: ${result.id}`);
+  }
+
+  for (const item of words) {
+    const result = await prisma.word.upsert({
+      where: { id: item.id },
+      update: {},
+      create: item,
+    });
+    console.log(`Created word with id: ${result.id}`);
+  }
+
+  for (const item of wordInTypes) {
+    const result = await prisma.word_In_Types.upsert({
+      where: { id: item.id },
+      update: {},
+      create: item,
+    });
+    console.log(`Created word_in_types with id: ${result.id}`);
+  }
+
+  for (const item of wordInCategories) {
+    const result = await prisma.word_In_Categories.upsert({
+      where: { id: item.id },
+      update: {},
+      create: item,
+    });
+    console.log(`Created word_in_categories with id: ${result.id}`);
   }
 
   console.log(`Seeding finished.`);

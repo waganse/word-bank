@@ -5,11 +5,13 @@ import WordsList from '@/components/words/WordsList';
 
 type Props = {
   params: { categoryId: string };
-  searchParams: { page: string };
+  searchParams: { page: string; type: string | undefined };
 };
 
 export default async function WordsPage({ params, searchParams }: Props) {
   const page = parseInt(searchParams.page, 10) || 1;
+  const categoryId = parseInt(params.categoryId, 10);
+  const typeId = searchParams.type ? parseInt(searchParams.type, 10) : undefined;
 
   return (
     <Suspense
@@ -32,7 +34,7 @@ export default async function WordsPage({ params, searchParams }: Props) {
         </Grid>
       }
     >
-      <WordsList categoryId={params.categoryId} page={page} />
+      <WordsList categoryId={categoryId} page={page} typeId={typeId} />
     </Suspense>
   );
 }

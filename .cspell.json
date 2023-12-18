@@ -2,5 +2,5 @@
   "version": "0.1",
   "language": "en",
   "words": ["chakra", "Chakra", "Eiken", "nextjs", "supabase", "Supabase", "TOEIC", "TOEFL"],
-  "ignorePaths": ["**/node_modules/**", "initdb.js"]
+  "ignorePaths": ["**/node_modules/**", "/prisma"]
 }

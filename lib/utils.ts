@@ -52,10 +52,26 @@ export async function getWord(word: string) {
   return wordData;
 }
 
-export async function getCategories() {
-  return await prisma.category.findMany();
+export async function getCategories(id?: number) {
+  return await prisma.category.findMany(
+    id
+      ? {
+          where: {
+            id,
+          },
+        }
+      : undefined
+  );
 }
 
-export async function getTypes() {
-  return await prisma.type.findMany();
+export async function getTypes(id?: number) {
+  return await prisma.type.findMany(
+    id
+      ? {
+          where: {
+            id,
+          },
+        }
+      : undefined
+  );
 }

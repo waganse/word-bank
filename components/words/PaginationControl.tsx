@@ -13,7 +13,7 @@ const className =
 
 export default function PaginationControl({ previousPath, nextPath }: Props) {
   return (
-    <Flex justifyContent="space-between" mt={8}>
+    <Flex justifyContent="space-between">
       {previousPath ? (
         <Link href={previousPath} className={className}>
           <ArrowLeftIcon />
